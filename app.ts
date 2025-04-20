@@ -56,7 +56,7 @@ const start = async () => {
         rootPath: '/',
         branding: {
             companyName: 'PSU HFS',
-            logo: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogolook.net%2Fwp-content%2Fuploads%2F2022%2F11%2FPenn-State-University-Logo.png&f=1&nofb=1&ipt=445448e6bf6cc15a385150575edf4e41eb7b982564ad4fde3cf87e34c9a54e74",
+            logo: "https://raw.githubusercontent.com/psuhfs/admin/refs/heads/main/assets/psu_logo.png",
             favicon: "https://avatars.githubusercontent.com/u/187778553",
             withMadeWithLove: false,
         },

@@ -1,6 +1,7 @@
 services:
   adminjs:
     container_name: adminjs
+    network_mode: host
     image: node:20
     working_dir: /app
     volumes:

@@ -18,9 +18,10 @@ type AdminUser = {
 }
 
 const authenticate = async (uname: string, password: string): Promise<AdminUser | null> => {
+    let pw = createHash("sha256").update(password).digest("base64")
     let unameResult = await CREW_MEMBER.findOne({
         uname: uname,
-        pw: createHash("sha256").update(password).digest("base64"),
+        pw,
     });
     if (unameResult) {
         return {
@@ -31,7 +32,7 @@ const authenticate = async (uname: string, password: string): Promise<AdminUser 
 
     let emailResult = await CREW_MEMBER.findOne({
         email: uname,
-        pw: createHash("sha256").update(password).digest("base64"),
+        pw,
     });
     if (emailResult) {
         return {

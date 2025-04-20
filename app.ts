@@ -8,6 +8,7 @@ import {CREW_MEMBER} from "./schema/user.js";
 import {ORDER} from "./schema/order.js";
 import { createHash } from "crypto";
 import dotenv from 'dotenv'
+import {Zone} from "./utils.js";
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -22,6 +23,7 @@ const authenticate = async (uname: string, password: string): Promise<AdminUser 
     let unameResult = await CREW_MEMBER.findOne({
         uname: uname,
         pw,
+        zonalAccess: Zone.Admin,
     });
     if (unameResult) {
         return {
@@ -33,6 +35,7 @@ const authenticate = async (uname: string, password: string): Promise<AdminUser 
     let emailResult = await CREW_MEMBER.findOne({
         email: uname,
         pw,
+        zonalAccess: Zone.Admin,
     });
     if (emailResult) {
         return {

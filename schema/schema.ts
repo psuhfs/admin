@@ -1,36 +1,34 @@
 import {Collections} from "../utils.js";
 import mongoose from "mongoose";
 
-const itemSchema = new mongoose.Schema(
+const categoryItemSchema = new mongoose.Schema(
     {
-        item_id: { type: String, required: true },
-        name: { type: String, required: true },
-        unit_sz: { type: String, required: true },
+        location: { type: String, required: true, index: true },
+        area: { type: String, required: true },
+        category: { type: String, required: true },
+        item_id: { type: String, default: "" },
+        name: { type: String, default: "" },
+        unit_sz: { type: String, default: "" },
     },
-    { _id: false }
+    { timestamps: true }
 );
 
-const areaSchema = new mongoose.Schema(
-    {
-        name: { type: String, required: true },
-        info: {
-            type: Map,
-            of: [itemSchema],
-        },
-    },
-    { _id: false }
+categoryItemSchema.index({ location: 1, area: 1, category: 1 });
+
+export const CATEGORY_ITEMS = mongoose.model(
+    Collections.CATEGORY_ITEMS,
+    categoryItemSchema
 );
 
-const categoriesSchema = new mongoose.Schema(
+const categoriesMetaSchema = new mongoose.Schema(
     {
         location: { type: String, required: true, unique: true },
-        areas: [areaSchema],
         lastSynced: { type: Date, default: Date.now },
     },
     { timestamps: true }
 );
 
-export const CATEGORIES_SCHEMA = mongoose.model(
-    Collections.CATEGORIES,
-    categoriesSchema
+export const CATEGORIES_META = mongoose.model(
+    Collections.CATEGORIES_META,
+    categoriesMetaSchema
 );

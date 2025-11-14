@@ -9,7 +9,7 @@ import {ORDER} from "./schema/order.js";
 import { createHash } from "crypto";
 import dotenv from 'dotenv'
 import {Zone} from "./utils.js";
-import {CATEGORIES_SCHEMA} from "./schema/schema.js";
+import {CATEGORIES_META, CATEGORY_ITEMS} from "./schema/schema.js";
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -53,7 +53,29 @@ const start = async () => {
     AdminJS.registerAdapter({Database, Resource})
 
     const admin = new AdminJS({
-        resources: [Points, CREW_MEMBER, ORDER, CATEGORIES_SCHEMA],
+        resources: [
+            Points, 
+            CREW_MEMBER, 
+            ORDER,
+            {
+                resource: CATEGORY_ITEMS,
+                options: {
+                    listProperties: ['location', 'area', 'category', 'item_id', 'name', 'unit_sz'],
+                    showProperties: ['location', 'area', 'category', 'item_id', 'name', 'unit_sz', 'createdAt', 'updatedAt'],
+                    editProperties: ['location', 'area', 'category', 'item_id', 'name', 'unit_sz'],
+                    filterProperties: ['location', 'area', 'category', 'item_id', 'name'],
+                },
+            },
+            {
+                resource: CATEGORIES_META,
+                options: {
+                    listProperties: ['location', 'lastSynced', 'createdAt', 'updatedAt'],
+                    showProperties: ['location', 'lastSynced', 'createdAt', 'updatedAt'],
+                    editProperties: ['location'],
+                    filterProperties: ['location'],
+                },
+            }
+        ],
         rootPath: '/',
         branding: {
             companyName: 'PSU HFS',

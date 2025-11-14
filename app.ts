@@ -9,6 +9,7 @@ import {ORDER} from "./schema/order.js";
 import { createHash } from "crypto";
 import dotenv from 'dotenv'
 import {Zone} from "./utils.js";
+import {CATEGORIES_SCHEMA} from "./schema/schema.js";
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -52,7 +53,7 @@ const start = async () => {
     AdminJS.registerAdapter({Database, Resource})
 
     const admin = new AdminJS({
-        resources: [Points, CREW_MEMBER, ORDER],
+        resources: [Points, CREW_MEMBER, ORDER, CATEGORIES_SCHEMA],
         rootPath: '/',
         branding: {
             companyName: 'PSU HFS',
